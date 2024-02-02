@@ -1,5 +1,5 @@
 #! python3
-#Michi4
+#Michi4\
 from PIL import Image
 import pyautogui
 import sys
@@ -19,7 +19,8 @@ kernel32.GlobalUnlock.argtypes = [ctypes.c_void_p]
 user32 = ctypes.windll.user32
 user32.GetClipboardData.restype = ctypes.c_void_p
 
-def getClip6digit():
+
+def get_code():
     user32.OpenClipboard(0)
     try:
         if user32.IsClipboardFormatAvailable(CF_TEXT):
@@ -28,9 +29,12 @@ def getClip6digit():
             text = ctypes.c_char_p(data_locked)
             value = text.value
             kernel32.GlobalUnlock(data_locked)
-            return str(re.findall(r'(\d{6})', (str(value))))
+            value = value.decode('utf-8')
+            print('\n\n\n VALLUUEE')
+            print(value)
+            return str(re.sub(r'[^0-9]', '', value))
     finally:
-        user32.CloseClipboard()
+        user32.CloseClipboard()    
 
 def getMail():
     user32.OpenClipboard(0)
@@ -41,7 +45,7 @@ def getMail():
             text = ctypes.c_char_p(data_locked)
             value = text.value
             kernel32.GlobalUnlock(data_locked)
-            if "@dropmail.me" in str(value)  or "@10mail.org"  in str(value)  or "@emlpro.com" in str(value) or "@emltmp.com" in str(value): # 
+            if "@dropmail.me" in str(value)  or "@yomail.info" in str(value): # 
                 match = re.search(r'[\w.+-]+@[\w-]+\.[\w.-]+', str(value))
                 return str(match.group(0))
             return False
@@ -52,8 +56,7 @@ webbrowser.open('https://google.com')
 time.sleep(5)
 pyautogui.keyDown('ctrlleft'); pyautogui.keyDown('shift'); pyautogui.typewrite('p'); pyautogui.keyUp('ctrlleft'); pyautogui.keyUp('shift')
 pyautogui.typewrite('https://account.proton.me/signup?plan=free\n')
-time.sleep(5)
-
+time.sleep(10)
 
 
 def randomize(
@@ -97,19 +100,24 @@ def randomize(
     else:
         return 'error'
 
+
 # Username
 _username_=randomize('-s',5)+randomize('-s',5)+randomize('-s',5)
-pyautogui.typewrite(_username_ + '\t\t')
+# pyautogui.typewrite(_username_ + '\t\t')
 print("Username:" + _username_)
 
 # Password
 _password_=randomize('-p',16)
-pyautogui.typewrite(_password_+'\t'+_password_+'\t')
+
 print("Password:" + _password_)
 
-pyautogui.typewrite('\n')
+pyautogui.typewrite(_username_)
+pyautogui.typewrite('\t\t\t')
+time.sleep(1)
+pyautogui.typewrite(_password_)
+pyautogui.typewrite('\t')
+pyautogui.typewrite(_password_)
 time.sleep(5)
-pyautogui.typewrite('\t\t\t\n')
 
 pyautogui.keyDown('ctrlleft');  pyautogui.typewrite('t'); pyautogui.keyUp('ctrlleft')
 
@@ -140,37 +148,36 @@ while True:
         break
 
 pyautogui.keyDown('ctrlleft');  pyautogui.typewrite('\t'); pyautogui.keyUp('ctrlleft')
-time.sleep(1)
-#äpyautogui.typewrite(newMail)
+time.sleep(3)
+
+pyautogui.typewrite('\n')
+time.sleep(15)
+pyautogui.typewrite('\t\t\t')#3
+pyautogui.typewrite('\n')
 pyautogui.keyDown('ctrlleft');  pyautogui.typewrite('v'); pyautogui.keyUp('ctrlleft')
 pyautogui.press('backspace')
 pyautogui.typewrite('\n')
-
 time.sleep(10)
 
 pyautogui.keyDown('ctrlleft');  pyautogui.typewrite('\t'); pyautogui.keyUp('ctrlleft')
-time.sleep(1)
+time.sleep(5)
 
-#pyautogui.typewrite('\t\t\t\t\t\t\t\t\t\t\t\t\t\n')
-
-#time.sleep(5)
-
-
+pyautogui.typewrite('\t\t\t\t\t\t\t\t\t\t\t\t\t\t')#14
+pyautogui.typewrite('\n')
+pyautogui.keyDown('shiftleft');pyautogui.typewrite('\t\t');pyautogui.keyUp('shiftleft')
+time.sleep(7)
 pyautogui.keyDown('ctrlleft');  pyautogui.typewrite('a'); pyautogui.keyUp('ctrlleft')
 pyautogui.keyDown('ctrlleft'); pyautogui.typewrite('c'); pyautogui.keyUp('ctrlleft')
-
+time.sleep(2)
 
 pyautogui.keyDown('ctrlleft');  pyautogui.typewrite('\t'); pyautogui.keyUp('ctrlleft')
-time.sleep(5)
-pyautogui.typewrite(str(getClip6digit()) + '\n')
 
 
+pyautogui.typewrite(str(get_code()))
 time.sleep(5)
+
 pyautogui.typewrite('\n')
 time.sleep(5)
-pyautogui.typewrite('\t\t\t\t\n')
-time.sleep(1)
-pyautogui.typewrite('\t\n')
 
 print(_username_+"@proton.me:" + _password_)
 
@@ -180,13 +187,3 @@ logfile.close()
 
 
 
-# CHAPTCHA
-#pyautogui.typewrite('\t')
-#pyautogui.typewrite('\t')
-#pyautogui.typewrite('\t')
-#pyautogui.typewrite('\t')
-#pyautogui.typewrite('\t')
-#pyautogui.typewrite('\t')
-#pyautogui.typewrite('\t')
-
-#pyautogui.typewrite('\n')
